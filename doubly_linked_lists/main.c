@@ -10,6 +10,7 @@ typedef struct Element {
 void appendElement(Element **start, int value);
 void insertAt(Element **start, int value, int index);
 void deleteAt(Element **start, int index);
+void deleteAll(Element **start);
 void delete(Element **start, int value);
 void output(Element *start);
 
@@ -17,12 +18,6 @@ int main(void) {
     // Get pointer to allocated element
     Element *start = NULL;
     output(start); // list is empty
-
-    /*(Element *) malloc(sizeof(Element));
-
-    // Set default values
-    start->value = 23;
-    start->next = NULL;*/
 
     // Append elements
     printf("\n### Append:\n");
@@ -51,6 +46,11 @@ int main(void) {
     delete(&start, 55);
     delete(&start, 1337); // not found
     output(start); // 1, 3, 4, 5
+
+    // Delete all values
+    printf("\n### Delete all values:\n");
+    deleteAll(&start);
+    output(start); // nothing
 
     return 0;
 }
@@ -180,6 +180,28 @@ void deleteAt(Element **start, int index) {
     if(!deleted) {
         printf("\nCould not delete value at index '%d': Array out of bounds [Size: %d].\n", index, i);
     }
+}
+
+/**
+ * Delete all elements of the list
+ * @param start
+ * @param index
+ */
+void deleteAll(Element **start) {
+    if(*start == NULL) {
+        return;
+    }
+
+    int i;
+
+    while(*start) {
+        Element *tmp = (*start)->next;
+        (*start) = (*start)->next;
+        free(tmp);
+    }
+
+    free(*start);
+    *start = NULL;
 }
 
 /**
