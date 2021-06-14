@@ -65,7 +65,7 @@ void enqueue(int value) {
 
 /**
  * Pull the first element from the queue
- * @return
+ * @return Value of type int
  */
 int dequeue() {
 
@@ -84,7 +84,7 @@ int dequeue() {
     // to the next element in the queue
     front = tmpFront->next;
 
-    // Free up unused memory for the removed element from the queue
+    // Free up memory for the removed element from the queue
     free(tmpFront);
 
     return value;
