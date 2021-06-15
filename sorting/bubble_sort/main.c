@@ -35,8 +35,15 @@ int main() {
         arr[i] = rnd;
     }
 
-    printList(arr, size);
+    // printList(arr, size);
+
+    clock_t start = clock();
     bubbleSort(arr, size);
-    printList(arr, size);
+    clock_t end = clock();
+
+    // printList(arr, size);
+
+    double elapsed = ((double) (end - start) / CLOCKS_PER_SEC) * 1000;
+    printf("\nTime elapsed: %.2fms\n", elapsed);
     return 0;
 }
