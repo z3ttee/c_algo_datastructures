@@ -2,21 +2,30 @@
 #include <stdlib.h>
 #include <time.h>
 
-void bubbleSort(int arr[], int size) {
-    for(int i = 0; i < size - 1; ++i) {
-        int changes = 0;
+void copy(int **dest, const int *src, int size) {
+    if (src == NULL) return;
+    if(*dest == NULL) *dest = (int*)malloc(sizeof(int) * size);
 
-        for(int k = 0; k < size - 1; ++k) {
-            if(arr[k] > arr[k + 1]) {
-                int tmp = arr[k];
-                arr[k] = arr[k + 1];
-                arr[k + 1] = tmp;
-                ++changes;
-            }
+    if (*dest != NULL){
+        for (int i = 0; i < size; i++){
+            (*dest)[i] = src[i];
         }
-
-        if(changes == 0) break;
     }
+}
+
+void shellSort(int **arr, int amountElements) {
+    if(*arr == NULL) {
+        return;
+    }
+
+    int step = amountElements;
+
+    do {
+        step = (step - 1 ) / 3 + 1;
+
+
+
+    } while (step > 1);
 }
 
 void printList(int arr[], int size) {
@@ -34,19 +43,19 @@ int main() {
     printf("\nWie gross soll die Liste sein?\n");
     scanf("%d", &size);
 
-    int arr[size];
+    int *arr = (int *) malloc(sizeof(int) * size);
     for(int i = 0; i < size; ++i) {
         int rnd = (rand() % 50) + 1;
         arr[i] = rnd;
     }
 
-    // printList(arr, size);
+    printList(arr, size);
 
     clock_t start = clock();
-    bubbleSort(arr, size);
+    mergeSort(&arr, 0, size - 1);
     clock_t end = clock();
 
-    // printList(arr, size);
+    printList(arr, size);
 
     double elapsed = ((double) (end - start) / CLOCKS_PER_SEC) * 1000;
     printf("\nTime elapsed: %.2fms\n", elapsed);
